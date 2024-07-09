@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 reqwest = {version = "0.12.5", features = ["json"]}
-openssl = {features = ["vendored"]}
-tokio = {features = ["full"]}
+openssl = {version = "0.10.64" features = ["vendored"]}
+tokio = {version = "1.38.0" features = ["full"]}
 clap = {version = "4.5.8", features = ["derive"]}
 home = "0.5.9"
 toml = "0.8.14"
