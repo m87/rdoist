@@ -20,6 +20,7 @@ async fn main() -> Result<(), Error> {
     let cli = Cli::parse();
     let config = config::load_config(&cli);
     let client = TodoistClient::new(config.api.token);
+    libnotify::init("rdoist").unwrap();
 
     match &cli.command {
         Some(Commands::List(target)) => list_cmd::run(&client, &target).await,
@@ -29,5 +30,6 @@ async fn main() -> Result<(), Error> {
         }
     }
 
+    libnotify::uninit();
     Ok(())
 }

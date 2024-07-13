@@ -1,7 +1,17 @@
 use serde::Deserialize;
+use serde::Serialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Task {
-    project_id: String,
-    content: String
+    content: String,
+    project_id: String
+}
+
+impl Task {
+    pub fn new(content: &String, project: &String) -> Task {
+        Task {
+            content: content.to_string(),
+            project_id: project.to_string()
+        }
+    }
 }

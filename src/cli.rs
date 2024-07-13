@@ -1,4 +1,4 @@
-use clap::{Parser, Subcommand};
+use clap::{builder::StringValueParser, Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -23,7 +23,9 @@ pub enum Commands {
 
 #[derive(Subcommand)]
 pub enum Add {
-    Task { name: Option<String>}
+    Task { 
+        content: String
+    }
 }
 
 #[derive(Subcommand)]

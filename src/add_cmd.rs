@@ -1,14 +1,16 @@
 use crate::cli::Add;
 use crate::todoist_client::TodoistClient;
 
+fn notify() {
+    let notifcation = libnotify::Notification::new("Rdoist", "Task added", None);
+    notifcation.show().unwrap();
+}
+
 pub async fn run(client: &TodoistClient, target: &Add) {
     match &target {
-        Add::Task { name } => {
-            let projects = client.get_projects().await;
-
-            for project in projects {
-                project.print();
-            }
+        Add::Task { content } => {
+            client.add_task(content, &String::from("")).await;
+            notify();
         }
     }
 }
