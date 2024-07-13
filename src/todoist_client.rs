@@ -23,11 +23,11 @@ impl TodoistClient {
         }
     }
     
-    pub async fn add_task(&self, content: &String, project: &String) {
+    pub async fn add_task(&self, task: &Task) {
             self
             .client
             .post("https://api.todoist.com/rest/v2/tasks")
-            .json(&serde_json::to_value(Task::new(&content, &project)).unwrap())
+            .json(&serde_json::to_value(task).unwrap())
             .send()
             .await.unwrap();
      }
@@ -45,4 +45,18 @@ impl TodoistClient {
         let dupa: Vec<Project> = serde_json::from_str(&resp).unwrap();
         return dupa;
     }
+
+    pub async fn get_project_id(&self, name: &String) -> Option<String> {
+        let projects = self.get_projects().await;
+
+        for project in projects {
+            if project.name == *name {
+                return Some(project.id);
+            }
+        }
+
+        return None;
+    }
+
+
 }

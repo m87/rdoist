@@ -2,7 +2,8 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct Project {
-    name: String,
+    pub name: String,
+    pub id: String
 }
 
 impl Project {
