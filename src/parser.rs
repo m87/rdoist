@@ -9,7 +9,7 @@ pub fn parse_task(task: &String) -> Task {
     let caps = project_re.captures(task.as_bytes());
     let project = match caps {
         Some(c) => Some(String::from_utf8(c.get(1).unwrap().as_bytes().to_vec()).unwrap()),
-        None => None
+        None => Some(String::from("inbox"))
     };
 
 
