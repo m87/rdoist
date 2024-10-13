@@ -13,12 +13,33 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     #[command(subcommand)]
-    List(List)
+    List(List),
+    #[command(subcommand)]
+    Add(Add),
+    #[command(subcommand)]
+    Push(Push),
+    #[command(subcommand)]
+    Pop(Pop),
 }
+
+#[derive(Subcommand)]
+pub enum Push {
+    Task {}
+}
+
+#[derive(Subcommand)]
+pub enum Pop {}
 
 #[derive(Subcommand)]
 pub enum List {
     Project {}
 }
 
+#[derive(Subcommand)]
+pub enum Add {
+    Task {
+        content: String
+    },
+    Project {},
+}
 
