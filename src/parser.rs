@@ -34,7 +34,7 @@ mod tests {
     fn should_get_default_project_name() {
         let project_name = parse_task(&"asdkjaskjd dalsds jsdkadsd alj".to_string()).project;
 
-        assert_eq!(project_name, None);
+        assert_eq!(project_name.unwrap(), "inbox");
     }
 }
 
