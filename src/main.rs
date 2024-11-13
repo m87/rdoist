@@ -19,7 +19,7 @@ fn main() {
         .build();
 
     match cli.command {
-        Some(Commands::List(target)) => list_cmd::run(&agent, &config.api.token, &target),
+        Some(Commands::List(target)) => list_cmd::run(&agent, &config, &target),
         Some(Commands::Add(target)) => add_cmd::run(&agent, &config.api.token, &target),
         Some(Commands::Push(target)) => panic!(),
         Some(Commands::Pop(target)) => panic!(),

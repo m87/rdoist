@@ -1,5 +1,6 @@
 use ureq::Agent;
 use crate::cli::List;
+use crate::config::Config;
 use crate::project::Project;
 
 pub fn list_projects(agent: &Agent, token: &String) -> Vec<Project> {
@@ -13,13 +14,22 @@ pub fn list_projects(agent: &Agent, token: &String) -> Vec<Project> {
         .into_json().unwrap()
 }
 
-pub fn run(agent: &Agent, token: &String, target: &List) {
+pub fn run(agent: &Agent, config: &Config, target: &List) {
     match target {
         List::Project {} => {
-            let projects = list_projects(agent, token);
+            let projects = list_projects(agent, &config.api.token);
 
-            for project in projects {
-                project.print();
+            match config.json {
+                Some(v) => if v {
+                    println!("{}", serde_json::to_string(&projects).unwrap());
+                } else {
+                    for project in projects {
+                        project.print();
+                    }
+                },
+                None => for project in projects {
+                    project.print();
+                }
             }
         }
     }

@@ -8,6 +8,9 @@ pub struct Cli {
 
     #[command(subcommand)]
     pub command: Option<Commands>,
+
+    #[arg(short, long)]
+    pub json: Option<bool>,
 }
 
 #[derive(Subcommand)]

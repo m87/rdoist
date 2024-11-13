@@ -9,6 +9,7 @@ pub struct Api {
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub api: Api,
+    pub json: Option<bool>,
 }
 
 fn resolve_config_path(arg: &Option<String>) -> String {
@@ -25,5 +26,7 @@ fn resolve_config_path(arg: &Option<String>) -> String {
 
 pub fn load_config(cli: &Cli) -> Config {
     let path = resolve_config_path(&cli.config_path);
-    toml::from_str(&std::fs::read_to_string(path).expect("Unable to read config")).unwrap()
+    let mut config: Config = toml::from_str(&std::fs::read_to_string(path).expect("Unable to read config")).unwrap();
+    config.json = cli.json;
+    config
 }
